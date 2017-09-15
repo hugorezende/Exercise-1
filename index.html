@@ -29,8 +29,9 @@ function convertToWord(){
 	var ten = ['', '', 'twenty','thirty','forty','fifty', 'sixty','seventy','eighty','ninety'];
 	var scales = ['', 'thousand', 'million', 'billion', 'trillion'];
 
-	var string = number.toString(),
-        units, tens, scales, start, end, chunks, chunksLen, chunk, ints, i, word, words;
+	var string = number.toString(), units, start, end, chunks, chunksLen, chunk, ints, i, word, words;
+
+	var var_and = "";
 
 
 	start = string.length;
@@ -48,32 +49,36 @@ function convertToWord(){
   	var tensUnits = chunks[0] % 100;
 
 
+  	//verifying numbers uper 100
+  	if(hundreds>0){
+  		
+  		if(parseInt(tensUnits)!=0){
+  			var_and = " and ";
+  		}
+  		word += digits[hundreds]+ "hundred"+ var_and;
+  	}
+
+
   	//verifying numbers under 100
-    if(parseInt(tensUnits)<20){
+
+  	//if tenUnits is zero, don't put and and not check
+  		
+  		if(parseInt(tensUnits)<20){
     	alert(tensUnits);
     	word += digits[tensUnits];
-    }else{
-    	var tensUnits_ = Math.floor(tensUnits/10);
-    	var digits_ = tensUnits % 10;
-    	word = digits_ == 0 ? ten[tensUnits_] : ten[tensUnits_]+" "+digits[digits_];
-    	alert(word);
-    }
-	
+	    }else{
+	    	var tensUnits_ = Math.floor(tensUnits/10);
+	    	var digits_ = tensUnits % 10;
+	    	word += digits_ == 0 ? ten[tensUnits_] : ten[tensUnits_]+" "+digits[digits_];
+	    	
+	    }
+  	
+  	alert(word);
+   
 
-  
-
-
-	if (parseInt(number)<20){
-
-		document.getElementById('result').innerHTML = digits[parseInt(number)];
-		
-	}else{
-		
+  	return false;
 
 
-
-	}
-	return false;
 }
 
 
