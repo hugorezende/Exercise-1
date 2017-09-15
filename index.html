@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Exercice 01</title>
+</head>
+<body>
+
+<h1>Javascript/Frontend Programmer - Exercise 1</h1>
+
+<form id="form" onsubmit="return convertToWord()">
+	<input type="text" name="" id="number">
+	<br>
+	<button type="submit">Convert</button>
+</form>
+
+<div id="result">
+	
+</div>
+
+</body>
+
+<script type="text/javascript">
+
+function convertToWord(){
+	number = document.getElementById('number').value;
+	//alert(number);
+
+	var digits = ['zero','one ','two ','three ','four ', 'five ','six ','seven ','eight ','nine ','ten ','eleven ','twelve ','thirteen ','fourteen ','fifteen ','sixteen ','seventeen ','eighteen ','nineteen '];
+	var ten = ['', '', 'twenty','thirty','forty','fifty', 'sixty','seventy','eighty','ninety'];
+	var scales = ['', 'thousand', 'million', 'billion', 'trillion'];
+
+	var string = number.toString(),
+        units, tens, scales, start, end, chunks, chunksLen, chunk, ints, i, word, words;
+
+
+	start = string.length;
+    chunks = [];
+    while (start > 0) {
+        end = start;
+        chunks.push(string.slice((start = Math.max(0, start - 3)), end));
+    }
+    chunksLen = chunks.length;
+   
+   	word = "";
+
+
+  	var hundreds = Math.floor(chunks[0] / 100);
+  	var tensUnits = chunks[0] % 100;
+
+
+  	//verifying numbers under 100
+    if(parseInt(tensUnits)<20){
+    	alert(tensUnits);
+    	word += digits[tensUnits];
+    }else{
+    	var tensUnits_ = Math.floor(tensUnits/10);
+    	var digits_ = tensUnits % 10;
+    	word = digits_ == 0 ? ten[tensUnits_] : ten[tensUnits_]+" "+digits[digits_];
+    	alert(word);
+    }
+	
+
+  
+
+
+	if (parseInt(number)<20){
+
+		document.getElementById('result').innerHTML = digits[parseInt(number)];
+		
+	}else{
+		
+
+
+
+	}
+	return false;
+}
+
+
+
+
+
+
+
+</script>
+
+
+
+</html>
