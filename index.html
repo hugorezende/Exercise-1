@@ -43,28 +43,28 @@ function convertToWord(){
     chunksLen = chunks.length;
    
    	word = "";
+  
+
+  	//getting all scales of 3 digit numbers
+   	for (i=chunksLen-1; i>=0; i--){
+
+	  	var hundreds = Math.floor(chunks[i] / 100);
+	  	var tensUnits = chunks[i] % 100;
+
+  		//verifying numbers uper 100
+	  	if(hundreds>0){
+	  		
+	  		if(parseInt(tensUnits)!=0){
+	  			var_and = " and ";
+	  		}
+	  		word += digits[hundreds]+ "hundred"+ var_and;
+	  	}
 
 
-  	var hundreds = Math.floor(chunks[0] / 100);
-  	var tensUnits = chunks[0] % 100;
-
-
-  	//verifying numbers uper 100
-  	if(hundreds>0){
-  		
-  		if(parseInt(tensUnits)!=0){
-  			var_and = " and ";
-  		}
-  		word += digits[hundreds]+ "hundred"+ var_and;
-  	}
-
-
-  	//verifying numbers under 100
-
-  	//if tenUnits is zero, don't put and and not check
+  		//verifying numbers under 100
+  		//if tenUnits is zero, don't put and and not check
   		
   		if(parseInt(tensUnits)<20){
-    	alert(tensUnits);
     	word += digits[tensUnits];
 	    }else{
 	    	var tensUnits_ = Math.floor(tensUnits/10);
@@ -72,8 +72,15 @@ function convertToWord(){
 	    	word += digits_ == 0 ? ten[tensUnits_] : ten[tensUnits_]+" "+digits[digits_];
 	    	
 	    }
-  	
+
+	   //putting scales on 3 digits numbers 
+	   word+=scales[i]+" ";
+  	}//end for
+
+
+
   	alert(word);
+  	
    
 
   	return false;
