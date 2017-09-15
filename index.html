@@ -25,17 +25,19 @@ function convertToWord(){
 	number = document.getElementById('number').value;
 	//alert(number);
 
-	var digits = ['zero','one ','two ','three ','four ', 'five ','six ','seven ','eight ','nine ','ten ','eleven ','twelve ','thirteen ','fourteen ','fifteen ','sixteen ','seventeen ','eighteen ','nineteen '];
+	var digits = ['','one','two','three','four', 'five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
 	var ten = ['', '', 'twenty','thirty','forty','fifty', 'sixty','seventy','eighty','ninety'];
-	var scales = ['', 'thousand', 'million', 'billion', 'trillion'];
+	var scales = ['', ' thousand', ' million', ' billion', ' trillion'];
 
 	var string = number.toString(), units, start, end, chunks, chunksLen, chunk, ints, i, word, words;
 
 	var var_and = "";
-
+	var var_and_between = "";
 
 	start = string.length;
     chunks = [];
+
+    //separating numbers in 3 digits groups
     while (start > 0) {
         end = start;
         chunks.push(string.slice((start = Math.max(0, start - 3)), end));
@@ -43,21 +45,38 @@ function convertToWord(){
     chunksLen = chunks.length;
    
    	word = "";
-  
+  	
+
 
   	//getting all scales of 3 digit numbers
    	for (i=chunksLen-1; i>=0; i--){
+   		
 
-	  	var hundreds = Math.floor(chunks[i] / 100);
+   		var_and_between = ""; //reseting "and"
+
+   		var hundreds = Math.floor(chunks[i] / 100);
 	  	var tensUnits = chunks[i] % 100;
 
+
+   		//---- Verifing AND between 3 digits
+   		
+   		if(i>0){ //only if number bigger than 1000
+   			if(((chunks[i-1] % 100))!=0){
+   				var_space_between = " ";
+
+   			}
+   		}
+   		//---- END Verifing
+
+
+	  
   		//verifying numbers uper 100
 	  	if(hundreds>0){
 	  		
 	  		if(parseInt(tensUnits)!=0){
 	  			var_and = " and ";
 	  		}
-	  		word += digits[hundreds]+ "hundred"+ var_and;
+	  		word += digits[hundreds]+ " hundred"+ var_and;
 	  	}
 
 
@@ -69,12 +88,15 @@ function convertToWord(){
 	    }else{
 	    	var tensUnits_ = Math.floor(tensUnits/10);
 	    	var digits_ = tensUnits % 10;
-	    	word += digits_ == 0 ? ten[tensUnits_] : ten[tensUnits_]+" "+digits[digits_];
+	    	word += digits_ == 0 ? ten[tensUnits_] : ten[tensUnits_]+"-"+digits[digits_];
 	    	
 	    }
 
-	   //putting scales on 3 digits numbers 
-	   word+=scales[i]+" ";
+	   //putting scales on 3 digits numbers and verifing if scale is not invalid
+	  
+	   if(((chunks[i] % 1000))!=0){
+	   	word+= scales[i] + var_space_between;
+	   }
   	}//end for
 
 
