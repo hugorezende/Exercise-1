@@ -41,37 +41,37 @@ function convertToWord() {
 	    var ten = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
 	    var scales = ['', ' thousand', ' million', ' billion', ' trillion'];
 
-	    var string = number.toString(),
-	        units, start, end, chunks, chunksLen, chunk, ints, i, word, words;
+	    var stringRead = number.toString(),
+	        units, start, end, hundred, hundredLen, i, word;
 
 	    var var_and = "";
 	    var var_and_between = "";
 
-	    start = string.length;
-	    chunks = [];
+	    start = stringRead.length;
+	    hundred = [];
 
 	    //separating numbers in 3 digits groups
 	    while (start > 0) {
 	        end = start;
-	        chunks.push(string.slice((start = Math.max(0, start - 3)), end));
+	        hundred.push(stringRead.slice((start = Math.max(0, start - 3)), end));
 	    }
-	    chunksLen = chunks.length;
+	    hundredLen = hundred.length;
 
 	    word = "";
 
 
 
 	    //getting all scales of 3 digit numbers
-	    for (i = chunksLen - 1; i >= 0; i--) {
+	    for (i = hundredLen - 1; i >= 0; i--) {
 	        var_and_between = ""; //reseting "and"
 
-	        var hundreds = Math.floor(chunks[i] / 100);
-	        var tensUnits = chunks[i] % 100;
+	        var hundreds = Math.floor(hundred[i] / 100);
+	        var tensUnits = hundred[i] % 100;
 
 
 	        //---- Verifing AND between 3 digits
 	        if (i > 0) { //only if number bigger than 1000
-	            if (((chunks[i - 1] % 100)) != 0) {
+	            if (((hundred[i - 1] % 100)) != 0) {
 	                var_space_between = " ";
 
 	            }
@@ -104,7 +104,7 @@ function convertToWord() {
 
 	        //putting scales on 3 digits numbers and verifing if scale is not invalid
 
-	        if (((chunks[i] % 1000)) != 0) {
+	        if (((hundred[i] % 1000)) != 0) {
 	            word += scales[i] + var_space_between;
 	        }
 	    } //end for
