@@ -1,40 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<title>Exercice 01</title>
+	
 </head>
 <body>
-
-<h1>Javascript/Frontend Programmer - Exercise 1</h1>
-
-<form id="form" onsubmit="return convertToWord()">
-	<input type="text" name="" id="number">
+<div class="container">
+	<h1>Javascript/Frontend Programmer - Exercise 1</h1>
+	<h4>Transforming numbers to words in english - Hugo Rezende</h4>
 	<br>
-	<button type="submit">Convert</button>
-</form>
+	<form class="form-group" id="form" onsubmit="return convertToWord()">
+		
+		<input class="form-control" type="text" name="" id="number" placeholder="Insert numeral">
+		<br>
+		<button class="btn" type="submit">Convert</button>
+	</form>
 
-<div id="result">
-	
+	<div id="result">
+		
+	</div>
 </div>
 
 </body>
 
 <script type="text/javascript">
 
-function convertToWord(){
-	number = document.getElementById('number').value;
-	//alert(number);
+function convertToWord() {
+    number = document.getElementById('number').value;
+    //alert(number);
 
-	var digits = ['','one','two','three','four', 'five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
-	var ten = ['', '', 'twenty','thirty','forty','fifty', 'sixty','seventy','eighty','ninety'];
-	var scales = ['', ' thousand', ' million', ' billion', ' trillion'];
+    var digits = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
+    var ten = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+    var scales = ['', ' thousand', ' million', ' billion', ' trillion'];
 
-	var string = number.toString(), units, start, end, chunks, chunksLen, chunk, ints, i, word, words;
+    var string = number.toString(),
+        units, start, end, chunks, chunksLen, chunk, ints, i, word, words;
 
-	var var_and = "";
-	var var_and_between = "";
+    var var_and = "";
+    var var_and_between = "";
 
-	start = string.length;
+    start = string.length;
     chunks = [];
 
     //separating numbers in 3 digits groups
@@ -43,74 +52,64 @@ function convertToWord(){
         chunks.push(string.slice((start = Math.max(0, start - 3)), end));
     }
     chunksLen = chunks.length;
-   
-   	word = "";
-  	
 
-
-  	//getting all scales of 3 digit numbers
-   	for (i=chunksLen-1; i>=0; i--){
-   		
-
-   		var_and_between = ""; //reseting "and"
-
-   		var hundreds = Math.floor(chunks[i] / 100);
-	  	var tensUnits = chunks[i] % 100;
-
-
-   		//---- Verifing AND between 3 digits
-   		
-   		if(i>0){ //only if number bigger than 1000
-   			if(((chunks[i-1] % 100))!=0){
-   				var_space_between = " ";
-
-   			}
-   		}
-   		//---- END Verifing
-
-
-	  
-  		//verifying numbers uper 100
-	  	if(hundreds>0){
-	  		
-	  		if(parseInt(tensUnits)!=0){
-	  			var_and = " and ";
-	  		}
-	  		word += digits[hundreds]+ " hundred"+ var_and;
-	  	}
-
-
-  		//verifying numbers under 100
-  		//if tenUnits is zero, don't put and and not check
-  		
-  		if(parseInt(tensUnits)<20){
-    	word += digits[tensUnits];
-	    }else{
-	    	var tensUnits_ = Math.floor(tensUnits/10);
-	    	var digits_ = tensUnits % 10;
-	    	word += digits_ == 0 ? ten[tensUnits_] : ten[tensUnits_]+"-"+digits[digits_];
-	    	
-	    }
-
-	   //putting scales on 3 digits numbers and verifing if scale is not invalid
-	  
-	   if(((chunks[i] % 1000))!=0){
-	   	word+= scales[i] + var_space_between;
-	   }
-  	}//end for
+    word = "";
 
 
 
-  	alert(word);
-  	
-   
+    //getting all scales of 3 digit numbers
+    for (i = chunksLen - 1; i >= 0; i--) {
+        var_and_between = ""; //reseting "and"
 
-  	return false;
+        var hundreds = Math.floor(chunks[i] / 100);
+        var tensUnits = chunks[i] % 100;
 
+
+        //---- Verifing AND between 3 digits
+        if (i > 0) { //only if number bigger than 1000
+            if (((chunks[i - 1] % 100)) != 0) {
+                var_space_between = " ";
+
+            }
+        }
+        //---- END Verifing
+
+
+
+        //verifying numbers uper 100
+        if (hundreds > 0) {
+
+            if (parseInt(tensUnits) != 0) {
+                var_and = " and ";
+            }
+            word += digits[hundreds] + " hundred" + var_and;
+        }
+
+
+        //verifying numbers under 100
+        //if tenUnits is zero, don't put and and not check
+
+        if (parseInt(tensUnits) < 20) {
+            word += digits[tensUnits];
+        } else {
+            var tensUnits_ = Math.floor(tensUnits / 10);
+            var digits_ = tensUnits % 10;
+            word += digits_ == 0 ? ten[tensUnits_] : ten[tensUnits_] + "-" + digits[digits_];
+
+        }
+
+        //putting scales on 3 digits numbers and verifing if scale is not invalid
+
+        if (((chunks[i] % 1000)) != 0) {
+            word += scales[i] + var_space_between;
+        }
+    } //end for
+
+    alert(word);
+
+    return false;
 
 }
-
-
 
 
 
