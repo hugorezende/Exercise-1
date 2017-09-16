@@ -37,12 +37,14 @@ function convertToWord() {
     	 return false;
     }else{
 
+    	//array or words for numbers bellow 20
 	    var digits = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
+	    //upper than 20
 	    var ten = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+	     //Array for scales
 	    var scales = ['', ' thousand', ' million', ' billion', ' trillion'];
 
-	    var stringRead = number.toString(),
-	        units, start, end, hundred, hundredLen, i, word;
+	    var stringRead = number.toString(), hundred, hundredLen, start, end, i, word;
 
 	    var var_and = "";
 	    var var_and_between = "";
